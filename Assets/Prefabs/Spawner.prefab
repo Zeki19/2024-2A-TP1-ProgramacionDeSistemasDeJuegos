@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd5bc2f978631042bbc781d6c365ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 3981897339790278196, guid: a368a0d99f3fb7c4cadb882e3ded1d2d, type: 3}
-  spawnsPerPeriod: 1
-  frequency: 2.5
-  period: 0
+  enemyPool: {fileID: 0}
+  spawnsPerPeriod: 2
+  frequency: 0
+  period: 1
 --- !u!1001 &3755572295206605296
 PrefabInstance:
   m_ObjectHideFlags: 0

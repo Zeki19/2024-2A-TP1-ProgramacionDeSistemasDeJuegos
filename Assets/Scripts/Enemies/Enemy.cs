@@ -8,7 +8,8 @@ namespace Enemies
     [RequireComponent(typeof(NavMeshAgent))]
     public class Enemy : MonoBehaviour
     {
-        [SerializeField] private NavMeshAgent agent;
+        [SerializeField] public NavMeshAgent agent;
+        private EnemyPool _enemyPool;
         public event Action OnSpawn = delegate { };
         public event Action OnDeath = delegate { };
     
@@ -21,6 +22,11 @@ namespace Enemies
             agent ??= GetComponent<NavMeshAgent>();
         }
 
+        public void Initialize(EnemyPool pool)
+        {
+            _enemyPool = pool;
+        }
+
         private void OnEnable()
         {
             //Is this necessary?? We're like, searching for it from every enemy D:
@@ -30,11 +36,14 @@ namespace Enemies
                 Debug.LogError($"{name}: Found no {nameof(townCenter)}!! :(");
                 return;
             }
-
-            var destination = townCenter.transform.position;
-            destination.y = transform.position.y;
-            agent.SetDestination(destination);
-            StartCoroutine(AlertSpawn());
+            var spawnPosition = transform.position;
+            if (agent.Warp(spawnPosition))
+            {
+                var destination = townCenter.transform.position;
+                destination.y = transform.position.y;
+                agent.SetDestination(destination);
+                StartCoroutine(AlertSpawn());
+            }
         }
 
         private IEnumerator AlertSpawn()
@@ -57,7 +66,15 @@ namespace Enemies
         private void Die()
         {
             OnDeath();
-            Destroy(gameObject);
+            if (_enemyPool != null)
+            {
+                _enemyPool.ReturnEnemyToPool(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject); 
+            }
+            
         }
     }
 }

@@ -8,7 +8,8 @@ namespace Audio
     {
         [SerializeField] private OnFinishAction finishAction;
         private AudioSource _source;
-        public AudioSource Source
+
+        private AudioSource Source
         {
             get
             {
@@ -20,7 +21,6 @@ namespace Audio
         public enum OnFinishAction
         {
             None,
-            Destroy,
             Deactivate,
         }
         
@@ -31,20 +31,15 @@ namespace Audio
             Source.outputAudioMixerGroup = data.Group;
             Source.Play();
             var clipLength = data.Clip.length;
-            if (finishAction == OnFinishAction.Destroy)
-            {
-                StartCoroutine(DestroySelfIn(clipLength));
-            }
-            else if (finishAction == OnFinishAction.Deactivate)
+            if (finishAction == OnFinishAction.Deactivate)
             {
                 StartCoroutine(DeactivateIn(clipLength));
             }
         }
-
-        private IEnumerator DestroySelfIn(float seconds)
+        
+        public void Stop()
         {
-            yield return new WaitForSeconds(Mathf.Max(seconds, 0));
-            Destroy(gameObject);
+            Source.Stop();
         }
         
         private IEnumerator DeactivateIn(float seconds)

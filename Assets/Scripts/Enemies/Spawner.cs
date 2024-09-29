@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private GameObject characterPrefab;
+    [SerializeField] private EnemyPool enemyPool;
     [SerializeField] private int spawnsPerPeriod = 10;
     [SerializeField] private float frequency = 30;
     [SerializeField] private float period = 0;
+
+    private void Awake()
+    {
+        enemyPool = FindObjectOfType<EnemyPool>();
+    }
 
     private void OnEnable()
     {
@@ -20,7 +25,10 @@ public class Spawner : MonoBehaviour
         {
             for (int i = 0; i < spawnsPerPeriod; i++)
             {
-                Instantiate(characterPrefab, transform.position, transform.rotation);
+                Vector3 spawnPosition = transform.position;
+                Quaternion spawnRotation = Quaternion.identity;
+
+                enemyPool.GetEnemyFromPool(spawnPosition, spawnRotation);
             }
 
             yield return new WaitForSeconds(period);
