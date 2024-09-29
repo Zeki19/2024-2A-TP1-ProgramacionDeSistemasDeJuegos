@@ -29,20 +29,29 @@ namespace Enemies
 
         private void OnEnable()
         {
-            //Is this necessary?? We're like, searching for it from every enemy D:
-            var townCenter = GameObject.FindGameObjectWithTag("TownCenter");
-            if (townCenter == null)
+            SetTargetBuilding();
+        }
+        
+        private void SetTargetBuilding()
+        {
+            // Get the building selector service from the Service Locator
+            var buildingSelector = ServiceLocator.GetService<IBuildingSelector>();
+
+            if (buildingSelector == null)
             {
-                Debug.LogError($"{name}: Found no {nameof(townCenter)}!! :(");
+                Debug.LogError($"{name}: Building selector service not found!");
                 return;
             }
-            var spawnPosition = transform.position;
-            if (agent.Warp(spawnPosition))
+
+            Transform targetBuilding = buildingSelector.GetTargetBuilding();
+            if (targetBuilding != null)
             {
-                var destination = townCenter.transform.position;
-                destination.y = transform.position.y;
-                agent.SetDestination(destination);
+                agent.SetDestination(targetBuilding.position);
                 StartCoroutine(AlertSpawn());
+            }
+            else
+            {
+                Debug.LogError($"{name}: No valid target building found!");
             }
         }
 
