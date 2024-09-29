@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6130579264676667318
+--- !u!1 &6412424298403994255
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,44 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3353322960385026345}
-  - component: {fileID: 6129647403286861423}
+  - component: {fileID: 7921198081622880412}
+  - component: {fileID: 7990855532751812596}
   m_Layer: 0
-  m_Name: VfxPool
+  m_Name: EnemyPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3353322960385026345
+--- !u!4 &7921198081622880412
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6130579264676667318}
+  m_GameObject: {fileID: 6412424298403994255}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 54.401257, y: 13.445533, z: 54.41922}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 147.97519, y: 61.876057, z: 45.75547}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6129647403286861423
+--- !u!114 &7990855532751812596
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6130579264676667318}
+  m_GameObject: {fileID: 6412424298403994255}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88a6aa3ac250ba04e8e6582292976e7d, type: 3}
+  m_Script: {fileID: 11500000, guid: 893a5aaebe8b4f34c828580a36964f46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathVfx:
-  - {fileID: 198004822848242970, guid: c00537b6984485846a6aa45f2a61aa72, type: 3}
-  - {fileID: 198054744853520878, guid: 5ba167079a5f35f419ecd34d8c71a78b, type: 3}
-  - {fileID: 198819086003702248, guid: aa663bec11f097e4b943112cb76a8232, type: 3}
-  initialPoolSize: 5
+  enemyPrefab: {fileID: 3981897339790278196, guid: a368a0d99f3fb7c4cadb882e3ded1d2d, type: 3}
+  spawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  initialPoolSize: 200

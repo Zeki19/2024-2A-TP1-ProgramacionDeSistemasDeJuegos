@@ -1,54 +1,48 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Enemies;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
-public class EnemyPool : MonoBehaviour
+namespace Enemies
 {
-    [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private int initialPoolSize = 200;
-
-    private Queue<GameObject> enemyPool = new Queue<GameObject>();
-
-    private void Awake()
+    public class EnemyPool : MonoBehaviour
     {
-        for (int i = 0; i < initialPoolSize; i++)
+        [SerializeField] private GameObject enemyPrefab;
+        [SerializeField] private Transform[] spawners;
+        [SerializeField] private int initialPoolSize = 200;
+
+        private readonly Queue<GameObject> _enemyPool = new Queue<GameObject>();
+
+        private void Awake()
         {
-            GameObject enemy = Instantiate(enemyPrefab, transform);
+            for (int i = 0; i < initialPoolSize; i++)
+            {
+                Transform randomSpawner = spawners[Random.Range(0, spawners.Length)];
+                GameObject enemy = Instantiate(enemyPrefab, randomSpawner.position, Quaternion.identity, transform);
+                enemy.SetActive(false);
+                _enemyPool.Enqueue(enemy);
+            }
+        }
+
+        public GameObject GetEnemyFromPool(Vector3 position, Quaternion rotation)
+        {
+            GameObject enemy;
+            if (_enemyPool.Count > 0)
+            {
+                enemy = _enemyPool.Dequeue();
+            }
+            else
+            {
+                Transform randomSpawner = spawners[Random.Range(0, spawners.Length)];
+                enemy = Instantiate(enemyPrefab, randomSpawner.position, Quaternion.identity, transform);
+            }
+            enemy.SetActive(true);
+            return enemy;
+        }
+
+        public void ReturnEnemyToPool(GameObject enemy)
+        {
             enemy.SetActive(false);
-            enemyPool.Enqueue(enemy);
+            _enemyPool.Enqueue(enemy);
         }
-    }
-
-    public GameObject GetEnemyFromPool(Vector3 position, Quaternion rotation)
-    {
-        GameObject enemy;
-        if (enemyPool.Count > 0)
-        {
-            enemy = enemyPool.Dequeue();
-        }
-        else
-        {
-            enemy = Instantiate(enemyPrefab, transform);
-        }
-
-        enemy.transform.position = position;
-        enemy.transform.rotation = rotation;
-        enemy.SetActive(true);
-        
-        Enemy enemyScript = enemy.GetComponent<Enemy>();
-        if (enemyScript != null)
-        {
-            enemyScript.Initialize(this);
-        }
-
-        return enemy;
-    }
-
-    public void ReturnEnemyToPool(GameObject enemy)
-    {
-        enemy.SetActive(false);
-        enemyPool.Enqueue(enemy);
     }
 }
