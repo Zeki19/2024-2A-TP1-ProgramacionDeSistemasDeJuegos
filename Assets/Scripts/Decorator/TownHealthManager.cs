@@ -7,7 +7,7 @@ using UnityEditor;
 
 public class TownHealthManager : MonoBehaviour
 {
-    public static TownHealthManager Instance { get; private set; } //Singleton
+    public static TownHealthManager Instance { get; private set; }
     
     private Dictionary<Vector3, IHealth> buildingsHealthDictionary = new Dictionary<Vector3, IHealth>();
     [SerializeField] private int maxHealth = 1000;

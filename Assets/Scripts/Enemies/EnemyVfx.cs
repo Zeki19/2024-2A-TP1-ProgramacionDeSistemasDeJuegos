@@ -29,7 +29,7 @@ namespace Enemies
 
         private void HandleDeath()
         { 
-            var particleClone = ParticleManager.Instance.GetRandomParticleClone();
+            var particleClone = ParticleManager.Instance.Clone();
             if (particleClone != null)
             {
                 particleClone.transform.position = transform.position;

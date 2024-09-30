@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleManager : MonoBehaviour
+public class ParticleManager : MonoBehaviour, IPrototype<ParticleSystem>
 {
     public static ParticleManager Instance { get; private set; }
 
@@ -31,7 +31,8 @@ public class ParticleManager : MonoBehaviour
         }
     }
     
-    public ParticleSystem GetRandomParticleClone()
+
+    public ParticleSystem Clone()
     {
         var particleArray = new List<ParticleSystem>(_particles.Values);
         ParticleSystem selectedPrototype = particleArray[UnityEngine.Random.Range(0, particleArray.Count)];
