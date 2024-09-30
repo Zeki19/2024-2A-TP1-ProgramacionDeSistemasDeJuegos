@@ -2729,6 +2729,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: spawnClips.Array.data[0].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: 2dc572a8624f17e4689e2bb1954b8cc1, type: 3}
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: spawnClips.Array.data[1].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: d24d902d02e60ef4d996cae11a13c5f0, type: 3}
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: spawnClips.Array.data[2].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: e39063e50a4dcd746bf6d52a2d83b858, type: 3}
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: spawnClips.Array.data[3].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: a75f452a5cbd6484f92b4e28de210839, type: 3}
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: explosionClips.Array.data[0].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: ea3b8c3505dcbe4438bf7c5dcd6c36b6, type: 3}
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: explosionClips.Array.data[1].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: f250898f23f25014fad9b017254dd106, type: 3}
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: explosionClips.Array.data[2].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: 502241eb68d1e1a40a1b32b53252575c, type: 3}
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: explosionClips.Array.data[3].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: e535ad89bba9bb04ca7102663cc43dc0, type: 3}
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: explosionClips.Array.data[4].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: 97af74ef49578f2419d40f01e0c9e96a, type: 3}
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: explosionClips.Array.data[5].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: 66475aa39f4cf824eaf18d3cc15818a8, type: 3}
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: explosionClips.Array.data[6].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: 554233fb8f5b51641bf4816562f9ab8e, type: 3}
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: explosionClips.Array.data[7].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: 0b88f7241dc22124c856f5d8ffcd080b, type: 3}
+    - target: {fileID: 5260103114084815583, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
+      propertyPath: explosionClips.Array.data[8].<Clip>k__BackingField
+      value: 
+      objectReference: {fileID: 8300000, guid: 3128e7dd8887719489bd061626851a6c, type: 3}
     - target: {fileID: 7269703664292055884, guid: ccc49b419454d9a448ca44be1f4b4225, type: 3}
       propertyPath: m_Name
       value: AudioPlayerPool
@@ -12262,7 +12314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a034b55c87837149b7a50ba48ab4e97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialHealth: 100
+  initialHealth: 50
   damagePerSecond: 1
 --- !u!114 &1518865121
 MonoBehaviour:

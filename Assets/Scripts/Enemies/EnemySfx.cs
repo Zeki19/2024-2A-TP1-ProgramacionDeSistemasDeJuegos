@@ -8,65 +8,86 @@ namespace Enemies
     [RequireComponent(typeof(Enemy))]
     public class EnemySfx : MonoBehaviour
     {
-        [SerializeField] private AudioPlayerPool _audioPlayerPool;
-        [SerializeField] private RandomContainer<AudioClipData> spawnClips;
-        [SerializeField] private RandomContainer<AudioClipData> explosionClips;
+        private ClipLibrary clipLibrary;
+        private AudioPlayerPool audioPlayerPool;
+        
         private Enemy _enemy;
-
-        private void Reset() => FetchComponents();
 
         private void Awake()
         {
-            FetchComponents();
-            _audioPlayerPool = FindObjectOfType<AudioPlayerPool>();
-            if (_audioPlayerPool == null) //If not found, turn it off.
+            // Fetch components dynamically to assign references
+            clipLibrary = FindObjectOfType<ClipLibrary>();
+            audioPlayerPool = AudioPlayerPool.Instance;
+
+            if (clipLibrary == null)
             {
-                Debug.LogError("AudioPlayerPool not in the scene!");
-                enabled = false;
+                Debug.LogError("ClipLibrary is not found in the scene! Please ensure it exists.");
+            }
+
+            if (audioPlayerPool == null)
+            {
+                Debug.LogError("AudioPlayerPool instance is not found! Make sure AudioPlayerPool is initialized in the scene.");
+            }
+
+            _enemy = GetComponent<Enemy>();
+
+            if (_enemy != null)
+            {
+                _enemy.OnSpawn += HandleOnSpawn;
+                _enemy.OnDeath += HandleOnDeath;
             }
         }
 
-        private void FetchComponents()
+        private void OnDestroy()
         {
-            // "a ??= b" is equivalent to "if(a == null) a = b" 
-            _enemy ??= GetComponent<Enemy>();
-        }
-        
-        private void OnEnable()
-        {
-            _enemy.OnSpawn += HandleSpawn;
-            _enemy.OnDeath += HandleDeath;
-        }
-        
-        private void OnDisable()
-        {
-            _enemy.OnSpawn -= HandleSpawn;
-            _enemy.OnDeath -= HandleDeath;
+            if (_enemy != null)
+            {
+                _enemy.OnSpawn -= HandleOnSpawn;
+                _enemy.OnDeath -= HandleOnDeath;
+            }
         }
 
-        private void HandleDeath()
+        private void HandleOnSpawn()
         {
-            PlayRandomClip(explosionClips);
+            PlayClip("Spawn");
         }
 
-        private void HandleSpawn()
+        private void HandleOnDeath()
         {
-            PlayRandomClip(spawnClips);
+            PlayClip("Explosion");
         }
 
-        private void PlayRandomClip(RandomContainer<AudioClipData> container)
+        private void PlayClip(string clipType)
         {
-            if (!container.TryGetRandom(out var clipData)) return;
-
-            AudioPlayer audioPlayer = _audioPlayerPool.GetAudioPlayerFromPool(transform.position);
+            if (clipLibrary == null)
+            {
+                Debug.LogError("clipLibrary is not assigned in EnemySfx! Please check the prefab.");
+                return;
+            }
+            
+            AudioClipData clipData = clipLibrary.GetClipData(clipType);
+            
+            if (clipData.Clip == null)
+            {
+                Debug.LogWarning($"ClipData of type {clipType} not found in ClipLibrary!");
+                return;
+            }
+            
+            AudioPlayer audioPlayer = AudioPlayerPool.Instance.GetAudioPlayerFromPool();
+            if (audioPlayer == null)
+            {
+                Debug.LogWarning("No available AudioPlayer in the pool!");
+                return;
+            }
+            
             audioPlayer.Play(clipData);
-            StartCoroutine(ReturnAudioPlayerAfterPlay(audioPlayer, clipData));
+            StartCoroutine(ReturnAudioPlayerToPoolAfterPlay(audioPlayer, clipData.Clip.length));
         }
-
-        private IEnumerator ReturnAudioPlayerAfterPlay(AudioPlayer audioPlayer, AudioClipData clipData)
+        
+        private IEnumerator ReturnAudioPlayerToPoolAfterPlay(AudioPlayer player, float clipLength)
         {
-            yield return new WaitForSeconds(clipData.Clip.length);
-            _audioPlayerPool.ReturnAudioPlayerToPool(audioPlayer);
+            yield return new WaitForSeconds(clipLength);
+            AudioPlayerPool.Instance?.ReturnAudioPlayerToPool(player);
         }
     }
 }
