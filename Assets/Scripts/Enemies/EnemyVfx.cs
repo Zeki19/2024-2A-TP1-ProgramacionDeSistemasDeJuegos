@@ -7,7 +7,6 @@ namespace Enemies
     public class EnemyVfx : MonoBehaviour
     {
         private Enemy _enemy;
-        [SerializeField] private RandomContainer<ParticleSystem> deathPrefabs;
 
         private void Reset() => FetchComponents();
 
@@ -29,12 +28,14 @@ namespace Enemies
         }
 
         private void HandleDeath()
-        {
-            if(!deathPrefabs.TryGetRandom(out var prefab))
-                return;
-            var vfx = Instantiate(prefab, transform.position, transform.rotation);
-            var mainModule = vfx.main;
-            mainModule.stopAction = ParticleSystemStopAction.Destroy;
+        { 
+            var particleClone = ParticleManager.Instance.GetRandomParticleClone();
+            if (particleClone != null)
+            {
+                particleClone.transform.position = transform.position;
+                particleClone.gameObject.SetActive(true);
+                particleClone.Play();
+            }
         }
     }
 }
