@@ -12264,6 +12264,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialHealth: 100
   damagePerSecond: 1
+--- !u!114 &1518865121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518865118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b91a9ab688d94b34c9b1531456296c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefabs:
+  - {fileID: 198004822848242970, guid: c00537b6984485846a6aa45f2a61aa72, type: 3}
+  - {fileID: 198054744853520878, guid: 5ba167079a5f35f419ecd34d8c71a78b, type: 3}
+  - {fileID: 198819086003702248, guid: aa663bec11f097e4b943112cb76a8232, type: 3}
 --- !u!1001 &1521351847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17116,6 +17132,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6412424298403994255, guid: 98ae6607b7cdd8046ad253c8febdd6a1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1518865120}
+    - targetCorrespondingSourceObject: {fileID: 6412424298403994255, guid: 98ae6607b7cdd8046ad253c8febdd6a1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1518865121}
   m_SourcePrefab: {fileID: 100100000, guid: 98ae6607b7cdd8046ad253c8febdd6a1, type: 3}
 --- !u!1001 &2451834940169844219
 PrefabInstance:
