@@ -6,31 +6,31 @@ using Random = UnityEngine.Random;
 
 public class BuildingSelector : MonoBehaviour, IBuildingSelector
 {
-    private Transform[] buildings;
+    private List<Transform> _buildings = new List<Transform>();
 
     private void Awake()
     {
-        var buildingsParent  = GameObject.Find("Buildings"); //Why noty passing this through inspector?
-        if (buildingsParent != null)
+        for (int i = 0; i < transform.childCount; i++)
         {
-            buildings = new Transform[buildingsParent.transform.childCount];
-            for (int i = 0; i < buildingsParent.transform.childCount; i++)
-            {
-                buildings[i] = buildingsParent.transform.GetChild(i);
-            }
-        }
-        else
-        {
-            Debug.LogError("Buildings GameObject not found in the scene.");
+            _buildings.Add(transform.GetChild(i));
         }
         
         ServiceLocator.RegisterService<IBuildingSelector>(this);
+        
+        if (TownHealthManager.Instance != null)
+        {
+            TownHealthManager.Instance.OnBuildingDestroyed += OnBuildingDestroyed;
+        }
     }
     
     public Transform GetTargetBuilding()
     {
-        if (buildings.Length == 0) return null;
+        if (_buildings.Count == 0) return null;
         
-        return buildings[Random.Range(0, buildings.Length)];
+        return _buildings[Random.Range(0, _buildings.Count)];
+    }
+    private void OnBuildingDestroyed(Vector3 destroyedBuildingPosition)
+    {
+        _buildings.RemoveAll(building => building != null && building.position == destroyedBuildingPosition);
     }
 }

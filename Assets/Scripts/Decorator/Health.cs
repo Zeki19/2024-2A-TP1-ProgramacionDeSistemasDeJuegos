@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace HealthSystem
+namespace Decorator
 {
-    public class Health
+    public class Health : IHealth
     {
         public int MaxHP { get; private set; }
         public int CurrentHP { get; private set; }
@@ -23,6 +23,11 @@ namespace HealthSystem
                 CurrentHP = 0;
                 OnDeath?.Invoke();
             }
+        }
+        
+        public void ResetHealth()
+        {
+            CurrentHP = MaxHP;
         }
 
         public int GetCurrentHealth()
